@@ -43,6 +43,7 @@ The optional settings object can have the following values:
 2. **`port`**: `Int` port of the host you want to connect to. Defaults to 14265.
 3. **`provider`**: `String` If you don't provide host and port, you can supply the full provider value to connect to
 4. **`sandbox`**: `Bool` Optional value to determine if your provider is the IOTA Sandbox or not.
+5. **`token`**: `String` Token string used for authenticating with the IOTA Sandbox if `sandbox` is set to `true`.
 
 You can either supply the remote node directly via the `provider` option, or individually with `host` and `port`, as can be seen in the example below:
 
@@ -94,9 +95,9 @@ iota.api.getNodeInfo(function(error, success) {
 
 ---
 
-## API Table of Contents		
+## API Table of Contents
 
-- **[api](#api)**
+- **[api](#iotaapi)**
     - **[Standard API](#standard-api)**
     - **[getTransactionsObjects](#gettransactionsobjects)**
     - **[findTransactionObjects](#findtransactionobjects)**
@@ -113,7 +114,7 @@ iota.api.getNodeInfo(function(error, success) {
     - **[getTransfers](#gettransfers)**
     - **[getAccountData](#getaccountdata)**
     - **[isReattachable](#isreattachable)**
-- **[utils](#iota.utils)**
+- **[utils](#iotautils)**
     - **[convertUnits](#convertunits)**
     - **[addChecksum](#addchecksum)**
     - **[noChecksum](#nochecksum)**
@@ -126,7 +127,7 @@ iota.api.getNodeInfo(function(error, success) {
     - **[extractJson](#extractjson)**
     - **[validateSignatures](#validatesignatures)**
     - **[isBundle](#isbundle)**
-- **[multisig](#iota.multisig)**
+- **[multisig](#iotamultisig)**
     - **[getKey](#getkey)**
     - **[getDigest](#getdigest)**
     - **[Address](#Address)**
@@ -135,7 +136,7 @@ iota.api.getNodeInfo(function(error, success) {
     - **[validateAddress](#validateaddress)**
     - **[initiateTransfer](#initiatetransfer)**
     - **[addSignature](#addsignature)**
-- **[valid](#iota.valid)**
+- **[valid](#iotavalid)**
     - **[isAddress](#isaddress)**
     - **[isTrytes](#istrytes)**
     - **[isValue](#isvalue)**
@@ -143,7 +144,7 @@ iota.api.getNodeInfo(function(error, success) {
     - **[isHash](#ishash)**
     - **[isTransfersArray](#istransfersarray)**
     - **[isArrayOfHashes](#isarrayofhashes)**
-    - **[isArrayOfTrytes](#isarrayoftrytes)**    
+    - **[isArrayOfTrytes](#isarrayoftrytes)**
     - **[isArrayOfAttachedTrytes](#isarrayofattachedtrytes)**
     - **[isArrayOfTxObjects](#isarrayoftxobjects)**
     - **[isInputs](#isinputs)**
@@ -433,7 +434,7 @@ Takes a tail transaction hash as input, gets the bundle associated with the tran
 
 #### Input
 ```
-iota.api.replayBundle(transaction [, callback])
+iota.api.replayBundle(transaction, depth, minWeightMagnitude [, callback])
 ```
 
 1. **`transaction`**: `String` Transaction hash, has to be tail.
